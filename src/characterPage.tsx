@@ -8,6 +8,8 @@ interface Character {
   id: number;
   name: string;
   status: string;
+  species: string;
+  gender: string;
   image: string;
   url: string;
 }
@@ -16,7 +18,16 @@ export const CharacterPage: React.FC = () => {
   const { id } = useParams();
   const api = `https://rickandmortyapi.com/api/character/${id}`;
 
-  const [character, setCharacter] = React.useState<Character[]>([]);
+  const [character, setCharacter] = React.useState<Character>({
+    id: 0,
+    name: "",
+    status: "",
+    species: "",
+    gender: "",
+    image: "",
+    url: "",
+  
+  });
 
   React.useEffect(() => {
     fetch(api)

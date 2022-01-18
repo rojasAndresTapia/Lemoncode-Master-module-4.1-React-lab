@@ -1,28 +1,28 @@
-import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { LoginPage } from "./login";
-import { ListPage } from "./list";
-import { RickMortyPage } from "./rickMorty";
-import { DetailPage } from "./detail";
-import { CharacterPage } from "./characterPage";
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { LoginPage } from './login';
+import { ListPage } from './list';
+import { RickMortyPage } from './rickMorty';
+import { DetailPage } from './detail';
+import { CharacterPage } from './characterPage';
 
 export const App = () => {
   return (
     <Router>
       <Switch>
-        <Route exact path="/">
+        <Route exact path='/'>
           <LoginPage />
         </Route>
-        <Route path="/list">
+        <Route path='/list'>
           <ListPage />
         </Route>
-        <Route path="/detail/:id">
+        <Route path='/detail/:id'>
           <DetailPage />
         </Route>
-        <Route path="/rickMorty">
+        <Route path='/rickMorty'>
           <RickMortyPage />
         </Route>
-        <Route path="/characterPage/:id">
+        <Route path='/characterPage/:id'>
           <CharacterPage />
         </Route>
       </Switch>

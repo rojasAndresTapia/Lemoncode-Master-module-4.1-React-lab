@@ -1,11 +1,11 @@
 import React from 'react';
 import { rickMortyStyles } from './rickMortyStyles';
-import { Pagination } from './Pagination';
+import { Pagination } from './pagination';
 import { generatePath, Link } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import { Button, CardActions, CardContent, CardMedia } from '@mui/material';
-import { Searcher } from './Searcher';
+import { Searcher } from './searcher';
 
 interface Character {
   id: number;
@@ -18,13 +18,12 @@ export const RickMortyPage: React.FC = () => {
   const [pageNumber, setPageNumber] = React.useState(1);
   const [value, setValue] = React.useState('');
   const [characters, setCharacters] = React.useState<Character[]>([]);
-  const api = `https://rickandmortyapi.com/api/character/?page=${pageNumber}&name=${value}`;
 
   React.useEffect(() => {
-    fetch(api)
+    fetch(`https://rickandmortyapi.com/api/character/?page=${pageNumber}&name=${value}`)
       .then((response) => response.json())
       .then((json) => setCharacters(json.results));
-  }, [api]);
+  }, []);
 
   // Handler functions
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,7 +32,7 @@ export const RickMortyPage: React.FC = () => {
   };
 
   const handleButtonClick = () => {
-    fetch(api)
+    fetch(`https://rickandmortyapi.com/api/character/?page=${pageNumber}&name=${value}`)
       .then((response) => response.json())
       .then((json) => setCharacters(json.results));
   };

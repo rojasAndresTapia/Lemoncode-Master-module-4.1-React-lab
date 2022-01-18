@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link, generatePath } from 'react-router-dom';
-import { Searcher } from './Searcher';
-import { RickMortyButton } from './RickMortyButton';
-import { ContainerButtonStyles} from './RickMortyButtonStyles';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Searcher } from './searcher';
+import { RickMortyButton } from './rickMortyButton';
+import { ContainerButtonStyles } from './rickMortyButtonStyles';
 import { StyledTableCell, StyledTableRow } from './listStyles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -10,6 +11,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
+import { Alert } from '@mui/material';
 
 interface MemberEntity {
   id: string;
@@ -45,20 +47,27 @@ export const ListPage: React.FC = () => {
       .then((json) => setMembers(json))
       .catch((error) => {
         alert('Try again with a new company');
-        window.location.href = 'http://localhost:8080/list';
+        // window.location.href = 'http://localhost:8080/list';
+        // return (
+        //   <Router>
+        //     <Switch>
+        //       <Route exact path='/list'>
+        //         <ListPage />
+        //       </Route>
+        //     </Switch>
+        //   </Router>
+        // );
       });
   };
 
   return (
     <>
       <div css={ContainerButtonStyles}>
-        <Typography variant='h2'>
-          List Page
-        </Typography>
-        <RickMortyButton/>
+        <Typography variant='h2'>List Page</Typography>
+        <RickMortyButton />
       </div>
       <TableContainer component={Paper}>
-      <h4>Write the name of the company to get the list of members</h4>
+        <h4>Write the name of the company to get the list of members</h4>
         <Searcher
           label='company'
           data={company.name}

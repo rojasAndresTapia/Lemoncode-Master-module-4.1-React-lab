@@ -1,5 +1,5 @@
 import React from "react";
-import {getSearcherStyles} from './SearcherStyles';
+import {getSearcherStyles} from './searcherStyles';
 import Button from '@mui/material/Button';
 import {TextField } from '@mui/material';
 

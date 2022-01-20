@@ -1,15 +1,25 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import Typography from '@mui/material/Typography';
+import { RedirectButton } from "./redirectButton";
 
 export const DetailPage: React.FC = () => {
   const { id } = useParams();
+
+  const history = useHistory();
+
+  const handleClick = () => {
+    history.push('/list');
+  }
 
   return (
     <>
       <Typography variant='h2' gutterBottom component='div'>Detail page</Typography>
       <h3>User Id: {id}</h3>
-      <Link to="/list">Back to list page</Link>
+      <RedirectButton
+      onClick={handleClick}
+      message='Back to List page'
+      />
     </>
   );
 };

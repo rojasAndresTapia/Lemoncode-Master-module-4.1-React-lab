@@ -1,6 +1,5 @@
 import React from 'react';
-import { Link, generatePath } from 'react-router-dom';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Link, generatePath, useHistory} from 'react-router-dom';
 import { Searcher } from './searcher';
 import { RickMortyButton } from './rickMortyButton';
 import { ContainerButtonStyles } from './rickMortyButtonStyles';
@@ -11,7 +10,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import { Alert } from '@mui/material';
 
 interface MemberEntity {
   id: string;
@@ -20,6 +18,9 @@ interface MemberEntity {
 }
 
 export const ListPage: React.FC = () => {
+
+  const history = useHistory()
+
   // States
   const [company, setCompany] = React.useState({
     name: 'Lemoncode',
@@ -30,7 +31,11 @@ export const ListPage: React.FC = () => {
   React.useEffect(() => {
     fetch(`${company.url}`)
       .then((response) => response.json())
-      .then((json) => setMembers(json));
+      .then((json) => setMembers(json))
+      .catch((error) => {
+        alert('No list members');
+      })
+      
   }, []);
 
   // Handler functions
@@ -44,19 +49,13 @@ export const ListPage: React.FC = () => {
   const handleButtonClick = () => {
     fetch(`${company.url}`)
       .then((response) => response.json())
-      .then((json) => setMembers(json))
-      .catch((error) => {
-        alert('Try again with a new company');
-        // window.location.href = 'http://localhost:8080/list';
-        // return (
-        //   <Router>
-        //     <Switch>
-        //       <Route exact path='/list'>
-        //         <ListPage />
-        //       </Route>
-        //     </Switch>
-        //   </Router>
-        // );
+      .then((json) => {
+        if (Array.isArray(json)) {
+          setMembers(json);
+        } else {
+          setMembers([]);
+          alert('Try again with a new company');
+        }
       });
   };
 
@@ -104,3 +103,11 @@ export const ListPage: React.FC = () => {
     </>
   );
 };
+function createBrowserHistory(arg0: { forceRefresh: boolean; }) {
+  throw new Error('Function not implemented.');
+}
+
+function useNavigate() {
+  throw new Error('Function not implemented.');
+}
+

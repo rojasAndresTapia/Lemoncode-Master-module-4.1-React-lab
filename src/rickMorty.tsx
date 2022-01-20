@@ -1,11 +1,12 @@
 import React from 'react';
 import { rickMortyStyles } from './rickMortyStyles';
 import { Pagination } from './pagination';
-import { generatePath, Link } from 'react-router-dom';
+import { generatePath, Link, useHistory } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import { Button, CardActions, CardContent, CardMedia } from '@mui/material';
 import { Searcher } from './searcher';
+import { RedirectButton } from './redirectButton';
 
 interface Character {
   id: number;
@@ -15,6 +16,7 @@ interface Character {
 }
 
 export const RickMortyPage: React.FC = () => {
+  const history = useHistory();
   const [pageNumber, setPageNumber] = React.useState(1);
   const [value, setValue] = React.useState('');
   const [characters, setCharacters] = React.useState<Character[]>([]);
@@ -31,19 +33,32 @@ export const RickMortyPage: React.FC = () => {
     setValue(event.target.value);
   };
 
+  const handleClick = () => {
+    history.push('/list');
+  }
+
   const handleButtonClick = () => {
     fetch(`https://rickandmortyapi.com/api/character/?page=${pageNumber}&name=${value}`)
       .then((response) => response.json())
-      .then((json) => setCharacters(json.results));
-  };
-
+      .then((json) => {
+        if (Array.isArray(json)) {
+          setCharacters(json);
+        } else {
+          alert('Try again with a new character');
+          setValue("");
+        }
+      });
+    };
   return (
     <>
       <Typography variant='h2' gutterBottom component='div'>
         Rick and Morty page
       </Typography>
       <div>
-        <Link to='/list'>Back to list page</Link>
+      <RedirectButton
+      onClick={handleClick}
+      message='Back to List page'
+      />
         <Searcher
           label='Search character'
           data={value}

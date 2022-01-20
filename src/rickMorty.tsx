@@ -41,14 +41,15 @@ export const RickMortyPage: React.FC = () => {
     fetch(`https://rickandmortyapi.com/api/character/?page=${pageNumber}&name=${value}`)
       .then((response) => response.json())
       .then((json) => {
-        if (Array.isArray(json)) {
-          setCharacters(json);
-        } else {
-          alert('Try again with a new character');
-          setValue("");
-        }
+          if (json.error == 'There is nothing here') {
+            alert('Sorry, try again');
+            setValue("");
+          } else {
+            setCharacters(json.results);
+          }
       });
-    };
+  };
+
   return (
     <>
       <Typography variant='h2' gutterBottom component='div'>

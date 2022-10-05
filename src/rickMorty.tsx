@@ -22,7 +22,9 @@ export const RickMortyPage: React.FC = () => {
   const [characters, setCharacters] = React.useState<Character[]>([]);
 
   React.useEffect(() => {
-    fetch(`https://rickandmortyapi.com/api/character/?page=${pageNumber}&name=${value}`)
+    fetch(
+      `https://rickandmortyapi.com/api/character/?page=${pageNumber}&name=${value}`
+    )
       .then((response) => response.json())
       .then((json) => setCharacters(json.results));
   }, []);
@@ -35,31 +37,30 @@ export const RickMortyPage: React.FC = () => {
 
   const handleClick = () => {
     history.push('/list');
-  }
+  };
 
   const handleButtonClick = () => {
-    fetch(`https://rickandmortyapi.com/api/character/?page=${pageNumber}&name=${value}`)
+    fetch(
+      `https://rickandmortyapi.com/api/character/?page=${pageNumber}&name=${value}`
+    )
       .then((response) => response.json())
       .then((json) => {
-          if (json.error == 'There is nothing here') {
-            alert('Sorry, try again');
-            setValue("");
-          } else {
-            setCharacters(json.results);
-          }
+        if (json.error == 'There is nothing here') {
+          alert('Sorry, that character does not exist, try again');
+          setValue('');
+        } else {
+          setCharacters(json.results);
+        }
       });
   };
 
   return (
     <>
-      <Typography variant='h2' gutterBottom component='div'>
+      <Typography variant='h1' gutterBottom component='div'>
         Rick and Morty page
       </Typography>
       <div>
-      <RedirectButton
-      onClick={handleClick}
-      message='Back to List page'
-      />
+        <RedirectButton onClick={handleClick} message='Back to List page' />
         <Searcher
           label='Search character'
           data={value}
@@ -80,9 +81,11 @@ export const RickMortyPage: React.FC = () => {
               </CardContent>
               <CardActions>
                 <Link
-                  to={generatePath('/characterPage/:id', { id: character.id})}
+                  to={generatePath('/characterPage/:id', { id: character.id })}
                 >
-                  <Button variant='contained' size='small'>Details</Button>
+                  <Button variant='contained' size='small'>
+                    Details
+                  </Button>
                 </Link>
               </CardActions>
             </Card>

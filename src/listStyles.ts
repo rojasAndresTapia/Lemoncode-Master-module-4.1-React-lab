@@ -1,24 +1,30 @@
-import { styled } from '@mui/material/styles';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import TableRow from '@mui/material/TableRow';
+import { css, SerializedStyles } from "@emotion/react"
+import companyBackground from './assets/company.jpg';
 
+export const containerHeaderStyles = (): SerializedStyles => css({
+    height: '50vh',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    backgroundImage: `url(${companyBackground})`,
+    'h1': {
+        color: '#fff',
+    },
+    'h5': {
+        color: '#fff',
+    }
+    
+})
 
-export const StyledTableCell = styled(TableCell)(({ theme }) => ({
-    [`&.${tableCellClasses.head}`]: {
-      backgroundColor: theme.palette.common.black,
-      color: theme.palette.common.white,
-    },
-    [`&.${tableCellClasses.body}`]: {
-      fontSize: 14,
-    },
-  }));
-  
-  export const StyledTableRow = styled(TableRow)(({ theme }) => ({
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.action.hover,
-    },
-    // hide last border
-    '&:last-child StyledTableCell, &:last-child th': {
-      border: 0,
-    },
-  }));
+export const companyListStyles = (): SerializedStyles => css({
+    display: 'flex',
+    padding:'40px',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+})
+
+export const companyCardStyles = (): SerializedStyles => css({
+   maxWidth: '250px',
+   margin: '10px 10px'
+})

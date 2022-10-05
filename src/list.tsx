@@ -3,13 +3,9 @@ import { Link, generatePath, useHistory} from 'react-router-dom';
 import { Searcher } from './searcher';
 import { RickMortyButton } from './rickMortyButton';
 import { ContainerButtonStyles } from './rickMortyButtonStyles';
-import { StyledTableCell, StyledTableRow } from './listStyles';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import Paper from '@mui/material/Paper';
+import { companyCardStyles, companyListStyles, containerHeaderStyles} from './listStyles';
 import Typography from '@mui/material/Typography';
+import { Button, Card, CardActions, CardContent, CardMedia } from '@mui/material';
 
 interface MemberEntity {
   id: string;
@@ -23,8 +19,8 @@ export const ListPage: React.FC = () => {
 
   // States
   const [company, setCompany] = React.useState({
-    name: 'Lemoncode',
-    url: `https://api.github.com/orgs/Lemoncode/members`,
+    name: 'Microsoft',
+    url: `https://api.github.com/orgs/Microsoft/members`,
   });
   const [members, setMembers] = React.useState<MemberEntity[]>([]);
 
@@ -36,7 +32,7 @@ export const ListPage: React.FC = () => {
         alert('No list members');
       })
       
-  }, []);
+  }, [members]);
 
   // Handler functions
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,12 +57,47 @@ export const ListPage: React.FC = () => {
 
   return (
     <>
-      <div css={ContainerButtonStyles}>
-        <Typography variant='h2'>List Page</Typography>
+      <div css={containerHeaderStyles}>
+        <Typography variant='h1'>Member's company list</Typography>
+        <Typography variant='h5'>Write the name of the company to get the list of members</Typography>
+        <div css={ContainerButtonStyles}>
+        <Searcher
+          label='company'
+          data={company.name}
+          onChange={handleInputChange}
+          onClick={handleButtonClick}
+        />
         <RickMortyButton />
+
+        </div>
+        
       </div>
-      <TableContainer component={Paper}>
-        <h4>Write the name of the company to get the list of members</h4>
+     
+      <div css={companyListStyles}>
+     
+          {members.map((member, index) => (
+            <Card key={index} sx={{ maxWidth: 345, marginBottom: 5 }} css={companyCardStyles}>
+              <CardMedia component='img' image={member.avatar_url} />
+              <CardContent>
+                <Typography gutterBottom variant='h5' component='div'>
+                  {member.login}
+                </Typography>
+                <Typography variant='body2' color='text.secondary'>
+                  {member.id}
+                </Typography>
+              </CardContent>
+              <CardActions>
+              <Link to={generatePath('/detail/:id', { id: member.login })}>
+                  <Button variant='contained' size='small'>
+                    Details
+                  </Button>
+                </Link>
+              </CardActions>
+            </Card>
+          ))}
+        </div>
+      {/* <TableContainer component={Paper}>
+        <h2>Write the name of the company to get the list of members</h2>
         <Searcher
           label='company'
           data={company.name}
@@ -99,7 +130,7 @@ export const ListPage: React.FC = () => {
             ))}
           </TableBody>
         </Table>
-      </TableContainer>
+      </TableContainer> */}
     </>
   );
 };

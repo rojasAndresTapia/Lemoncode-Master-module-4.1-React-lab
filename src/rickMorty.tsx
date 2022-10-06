@@ -1,5 +1,5 @@
 import React from 'react';
-import { rickMortyStyles } from './rickMortyStyles';
+import { containerHeaderStyles, rickMortyStyles } from './rickMortyStyles';
 import { Pagination } from './pagination';
 import { generatePath, Link, useHistory } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
@@ -7,6 +7,7 @@ import Card from '@mui/material/Card';
 import { Button, CardActions, CardContent, CardMedia } from '@mui/material';
 import { Searcher } from './searcher';
 import { RedirectButton } from './redirectButton';
+import { ContainerButtonStyles } from './rickMortyButtonStyles';
 
 interface Character {
   id: number;
@@ -56,17 +57,24 @@ export const RickMortyPage: React.FC = () => {
 
   return (
     <>
-      <Typography variant='h1' gutterBottom component='div'>
+    <div css={containerHeaderStyles}>
+   
+      <Typography variant='h1'>
         Rick and Morty page
       </Typography>
-      <div>
-        <RedirectButton onClick={handleClick} message='Back to List page' />
-        <Searcher
+      <Typography variant='h5'>Write the name of the character to filter your search</Typography>
+      <div css={ContainerButtonStyles}>
+      <Searcher
           label='Search character'
           data={value}
           onChange={handleInputChange}
           onClick={handleButtonClick}
         />
+    <RedirectButton onClick={handleClick} message='Back to List page' />
+    </div>
+    </div>
+        
+       
         <div css={rickMortyStyles}>
           {characters.map((character, index) => (
             <Card key={index} sx={{ maxWidth: 345, marginBottom: 5 }}>
@@ -95,7 +103,6 @@ export const RickMortyPage: React.FC = () => {
           pageNumber={pageNumber}
           setPageNumber={setPageNumber}
         ></Pagination>
-      </div>
     </>
   );
 };

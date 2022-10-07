@@ -30,7 +30,7 @@ export const DetailPage: React.FC = () => {
     fetch(api)
       .then((response) => response.json())
       .then((json) => setMember(json));
-  }, [member]);
+  }, [member.login]);
 
   const handleClick = () => {
     history.push('/list');
@@ -53,12 +53,6 @@ export const DetailPage: React.FC = () => {
             <Typography variant="subtitle1" gutterBottom component="div">
               {member.html_url}
             </Typography>
-            {/* <Typography variant="subtitle1" gutterBottom component="div">
-              {member.gender}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {member.status}
-            </Typography> */}
           </CardContent>
         </Card>
       </div>

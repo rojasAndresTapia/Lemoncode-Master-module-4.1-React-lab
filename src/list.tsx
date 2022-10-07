@@ -16,11 +16,12 @@ interface MemberEntity {
 export const ListPage: React.FC = () => {
 
   const history = useHistory()
+  
 
   // States
   const [company, setCompany] = React.useState({
-    name: 'Microsoft',
-    url: `https://api.github.com/orgs/Microsoft/members`,
+    name: 'Apple',
+    url: `https://api.github.com/orgs/Apple/members`,
   });
   const [members, setMembers] = React.useState<MemberEntity[]>([]);
 
@@ -87,7 +88,7 @@ export const ListPage: React.FC = () => {
                 </Typography>
               </CardContent>
               <CardActions>
-              <Link to={generatePath('/detail/:id', { id: member.login })}>
+              <Link to={generatePath('/detail/:login', { login: member.login })}>
                   <Button variant='contained' size='small'>
                     Details
                   </Button>
@@ -96,41 +97,6 @@ export const ListPage: React.FC = () => {
             </Card>
           ))}
         </div>
-      {/* <TableContainer component={Paper}>
-        <h2>Write the name of the company to get the list of members</h2>
-        <Searcher
-          label='company'
-          data={company.name}
-          onChange={handleInputChange}
-          onClick={handleButtonClick}
-        />
-        <Table sx={{ minWidth: 700 }} aria-label='customized table'>
-          <TableHead>
-            <StyledTableRow key='firstRow'>
-              <StyledTableCell align='center'>Avatar</StyledTableCell>
-              <StyledTableCell align='center'>Id</StyledTableCell>
-              <StyledTableCell align='center'>Name</StyledTableCell>
-            </StyledTableRow>
-          </TableHead>
-          <TableBody>
-            {members.map((member, index) => (
-              <StyledTableRow key={index}>
-                <StyledTableCell align='center'>
-                  <img src={member.avatar_url} style={{ width: '5rem' }} />
-                </StyledTableCell>
-                <StyledTableCell align='center'>
-                  <span>{member.id}</span>
-                </StyledTableCell>
-                <StyledTableCell align='center'>
-                  <Link to={generatePath('/detail/:id', { id: member.login })}>
-                    {member.login}
-                  </Link>
-                </StyledTableCell>
-              </StyledTableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer> */}
     </>
   );
 };

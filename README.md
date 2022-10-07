@@ -16,4 +16,4 @@ It consists of two parts:
 
  <img src="src/images/rick.png" width="50%">
  
-  <img src="src/images/company.png" width="50%">
+  <img src="src/images/detail.png" width="50%">
